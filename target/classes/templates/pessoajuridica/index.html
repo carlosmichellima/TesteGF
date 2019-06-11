@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8"></meta>
+	<title>Lista de Usuários</title>
+	<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+	<div th:replace="fragmentos/fragmentos :: header"></div>
+	
+	<div class="container">
+		<h2>Lista de Usuários Cadastrados - Pessoas Jurídicas</h2>
+		<a href="/pessoasjuridicas/inserir" class="btn btn-default">Cadastrar novo usuário</a>
+		<div class="row">
+			<div class="form-group col-md-12">
+				<label for="txt-pesquisa-pessoajuridica">Pesquisa:</label>
+				<input type="text" id="txt-pesquisa-usuario" class="form-control" />
+				<button type="button" class="btn btn-default" id="btn-pesquisa-pessoajuridica">Pesquisar</button>
+			
+			</div>
+		</div>
+		<table class="table" id="tbl-pessoasjuridicas">
+			<thead>
+				<tr>
+					<th>CNPJ</th>
+					<th>Nome Fantasia</th>	
+					<th>Razão Social</th>	
+					<th>Data de abertura</th>
+					<th>Logradouro</th>
+					<th>Num</th>
+					<th>Compl.</th>	
+					<th>CEP</th>
+					<th>Bairro</th>
+					<th>Município</th>
+					<th>UF</th>
+					<th>Telefone</th>
+					<th>E-mail</th>
+					<th>Ações</th>
+					
+				</tr>			
+			</thead>
+			<tbody>
+				<tr th:each="pessoajuridica: ${pessoasjuridicas}">
+					<td th:text="${pessoajuridica.cnpj}"></td>
+					<td th:text="${pessoajuridica.nomeFantasia}"></td>
+					<td th:text="${pessoajuridica.nomeRazaoSocial}"></td>
+					<td th:text="${pessoajuridica.dataAbertura}"></td>
+					<td th:text="${pessoajuridica.logradouro}"></td>
+					<td th:text="${pessoajuridica.numero}"></td>
+					<td th:text="${pessoajuridica.complemento}"></td>
+					<td th:text="${pessoajuridica.cep}"></td>
+					<td th:text="${pessoajuridica.bairro}"></td>
+					<td th:text="${pessoajuridica.municipio}"></td>
+					<td th:text="${pessoajuridica.uf}"></td>
+					<td th:text="${pessoajuridica.telefone}"></td>
+					<td th:text="${pessoajuridica.email}"></td>
+					<td>
+						<a th:href="@{/pessoasjuridicas/editar/{cnpj}(cnpj=${pessoajuridica.cnpj})}">Editar</a>|
+						<a th:href="@{/pessoasjuridicas/excluir/{cnpj}(cnpj=${pessoajuridica.cnpj})}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div th:replace="fragmentos/fragmentos :: footer"></div>
+	<script type="text/javascript" src="/webjars/jquery/3.1.1-1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){			
+			$('#btn-pesquisa-pessoajuridica').click(function(){
+				$.ajax({
+					method:'GET',
+					url:'/pessoasjuridicas/pesquisarPorNome/' + $('#txt-pesquisa-pessoajuridica').val(),
+					success: function(data){
+						$('#tbl-pessoasjuridicas tbody > tr').remove();
+						$.each(data, function(){
+							$('#tbl-pessoasjuridicas tbody').append(
+								'<tr>' + 
+								'	<td>' + this.cnpj + '</td>'+
+								'	<td>' + this.nomeFantasia + '</td>'+
+								'	<td>' + this.nomeRazaoSocial + '</td>'+
+								'	<td>' + this.dataAbertura + '</td>'+
+								'	<td>' + this.logradouro + '</td>'+
+								'	<td>' + this.numero + '</td>'+
+								'	<td>' + this.complemento + '</td>'+
+								'	<td>' + this.cep + '</td>'+
+								'	<td>' + this.bairro + '</td>'+
+								'	<td>' + this.municipio + '</td>'+
+								'	<td>' + this.uf + '</td>'+
+								'	<td>' + this.telefone + '</td>'+
+								'	<td>' + this.email + '</td>'+
+								'	<td>' +
+								'		<a href="/pessoasjuridicas/editar/' + this.id + '">Editar</a> | '+
+								'		<a href="/pessoasjuridicas/excluir/' + this.id + '">Excluir</a>'+
+								'	</td>'+
+								'</tr>'
+							);
+						});
+					},
+					error: function(){
+						alert('Digite um nome para realizar a pesquisa');
+					}
+				});
+				
+			});
+		});	
+	</script>
+</body>
+</html>

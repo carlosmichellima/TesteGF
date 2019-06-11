@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: TesteGF
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: carlo
+Implementation-Vendor-Id: br.com.michellima
+Build-Jdk: 1.8.0_201
+Implementation-URL: http://projects.spring.io/spring-boot/TesteGF/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

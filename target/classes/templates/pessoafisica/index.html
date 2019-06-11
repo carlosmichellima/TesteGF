@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8"></meta>
+	<title>Lista de Usuários</title>
+	<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+	<div th:replace="fragmentos/fragmentos :: header"></div>
+	
+	<div class="container">
+		<h2>Lista de Usuários Cadastrados - Pessoas Físicas</h2>
+		<a href="/pessoasfisicas/inserir" class="btn btn-default">Cadastrar novo usuário</a>
+		<div class="row">
+			<div class="form-group col-md-12">
+				<label for="txt-pesquisa-pessoafisica">Pesquisa:</label>
+				<input type="text" id="txt-pesquisa-pessoafisica" class="form-control" />
+				<button type="button" class="btn btn-default" id="btn-pesquisa-pessoafisica">Pesquisar</button>
+			
+			</div>
+		</div>
+		<table class="table" id="tbl-pessoasfisicas">
+			<thead>
+				<tr>
+					<th>CPF</th>
+					<th>Nome</th>	
+					<th>Nascimento</th>
+					<th>Logradouro</th>
+					<th>Num</th>
+					<th>Compl.</th>	
+					<th>CEP</th>
+					<th>Bairro</th>
+					<th>Município</th>
+					<th>UF</th>
+					<th>Telefone</th>
+					<th>E-mail</th>
+					<th>Ações</th>
+					
+				</tr>			
+			</thead>
+			<tbody>
+				<tr th:each="pessoafisica: ${pessoasfisicas}">
+					<td th:text="${pessoafisica.cpf}"></td>
+					<td th:text="${pessoafisica.nome}"></td>
+					<td th:text="${pessoafisica.dataNascimento}"></td>
+					<td th:text="${pessoafisica.logradouro}"></td>
+					<td th:text="${pessoafisica.numero}"></td>
+					<td th:text="${pessoafisica.complemento}"></td>
+					<td th:text="${pessoafisica.cep}"></td>
+					<td th:text="${pessoafisica.bairro}"></td>
+					<td th:text="${pessoafisica.municipio}"></td>
+					<td th:text="${pessoafisica.uf}"></td>
+					<td th:text="${pessoafisica.telefone}"></td>
+					<td th:text="${pessoafisica.email}"></td>
+					<td>
+						<a th:href="@{/pessoasfisicas/editar/{cpf}(cpf=${pessoafisica.cpf})}">Editar</a>|
+						<a th:href="@{/pessoasfisicas/excluir/{cpf}(cpf=${pessoafisica.cpf})}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div th:replace="fragmentos/fragmentos :: footer"></div>
+	<script type="text/javascript" src="/webjars/jquery/3.1.1-1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){			
+			$('#btn-pesquisa-pessoafisica').click(function(){
+				$.ajax({
+					method:'GET',
+					url:'/pessoasfisicas/pesquisarPorNome/' + $('#txt-pesquisa-pessoafisica').val(),
+					success: function(data){
+						$('#tbl-pessoasfisicas tbody > tr').remove();
+						$.each(data, function(){
+							$('#tbl-pessoasfisicas tbody').append(
+								'<tr>' + 
+								'	<td>' + this.cpf + '</td>'+
+								'	<td>' + this.nome + '</td>'+
+								'	<td>' + this.dataNascimento + '</td>'+
+								'	<td>' + this.logradouro + '</td>'+
+								'	<td>' + this.numero + '</td>'+
+								'	<td>' + this.complemento + '</td>'+
+								'	<td>' + this.cep + '</td>'+
+								'	<td>' + this.bairro + '</td>'+
+								'	<td>' + this.municipio + '</td>'+
+								'	<td>' + this.uf + '</td>'+
+								'	<td>' + this.telefone + '</td>'+
+								'	<td>' + this.email + '</td>'+
+								'	<td>' +
+								'		<a href="/pessoasfisicas/editar/' + this.id + '">Editar</a> | '+
+								'		<a href="/pessoasfisicas/excluir/' + this.id + '">Excluir</a>'+
+								'	</td>'+
+								'</tr>'
+							);
+						});
+					},
+					error: function(){
+						alert('Digite um nome para realizar a pesquisa');
+					}
+				});
+				
+			});
+		});	
+	</script>
+</body>
+</html>

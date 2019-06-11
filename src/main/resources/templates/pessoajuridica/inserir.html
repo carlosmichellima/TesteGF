@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+	<meta charset="UTF-8"></meta>
+	<title>Inserção de Usuários - Pessoas Jurídicas</title>
+	<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+	<div th:replace="fragmentos/fragmentos :: header"></div>
+	
+	<div class="container">
+		<h2>Cadastro de nova pessoa jurídica</h2>
+		<form class="form-horizontal" action="/pessoasjuridicas/inserir" method="post" th:object="${pessoajuridica}">
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-cnpj">CNPJ:</label>
+					<input type="text" class="form-control" id="txt-cnpj" th:field="*{cnpj}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-nomeFantasia">Nome Fantasia:</label>
+					<input type="text" class="form-control" id="txt-nomeFantasia" th:field="*{nomeFantasia}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-nomeRazaoSocial">Razão Social:</label>
+					<input type="text" class="form-control" id="txt-nomeRazaoSocial" th:field="*{nomeRazaoSocial}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-dataAbertura">Data de abertura:</label>
+					<input type="text" class="form-control" id="txt-dataAbertura" th:field="*{dataAbertura}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-logradouro">Logradouro:</label>
+					<input type="text" class="form-control" id="txt-logradouro" th:field="*{logradouro}" />
+				</div>
+			</div>
+						<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-numero">Num:</label>
+					<input type="text" class="form-control" id="txt-numero" th:field="*{numero}" />
+				</div>
+			</div>
+						<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-complemento">Compl.:</label>
+					<input type="text" class="form-control" id="txt-complemento" th:field="*{complemento}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-cep">CEP</label>
+					<input type="text" class="form-control" id="txt-cep" th:field="*{cep}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-bairro">Bairro:</label>
+					<input type="text" class="form-control" id="txt-bairro" th:field="*{bairro}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-municipio">Município:</label>
+					<input type="text" class="form-control" id="txt-municipio" th:field="*{municipio}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-uf">UF:</label>
+					<input type="text" class="form-control" id="txt-uf" th:field="*{uf}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-telefone">Telefone:</label>
+					<input type="text" class="form-control" id="txt-telefone" th:field="*{telefone}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-email">Email:</label>
+					<input type="text" class="form-control" id="txt-email" th:field="*{email}" />
+				</div>
+			</div>
+			<input type="submit" value="Salvar" class="btn btn-default" />
+		</form>
+	</div>
+	
+	
+	<div th:replace="fragmentos/fragmentos :: footer"></div>
+	<script type="text/javascript" src="/webjars/jquery/3.1.1-1/jquery.min.js"></script>
+</body>
+</html>
